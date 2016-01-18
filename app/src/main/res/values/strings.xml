@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LunchProposer</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_lunch">お店一覧</string>
+    <string name="title_activity_lunch_register">LunchRegister</string>
+    <string name="action_settings">Settings</string>
+</resources>
