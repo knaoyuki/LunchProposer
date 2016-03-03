@@ -7,7 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
+    TextView pLunch = (TextView) findViewById(R.id.TxtProposeLunch);
+    pLunch.setText(propseLunch());
   }
 
   @Override
@@ -42,8 +49,19 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public String propseLunch(int type) {
-    String ans = "";
+  public String propseLunch() {
+
+    String lunch = "";
+    ArrayList<String> lunchList = new ArrayList<String>();
+
+    CheckBox chkLight = (CheckBox)findViewById(R.id.ChkLight);
+    CheckBox chkNormal = (CheckBox)findViewById(R.id.ChkNormal);
+    CheckBox chkHeavy = (CheckBox)findViewById(R.id.ChkHeavy);
+
+    String light = chkLight.isChecked() ? "1" : "0";
+    String normal = chkNormal.isChecked() ? "1" : "0";
+    String heavy = chkHeavy.isChecked() ? "1" : "0";
+
     LunchMaster lm = new LunchMaster(this);
     Cursor csr = null;
     SQLiteDatabase db = null;
@@ -53,23 +71,19 @@ public class MainActivity extends AppCompatActivity {
     sql.append("FROM ");
     sql.append("  m_lunch ");
     sql.append("WHERE ");
-    if (type == 1) sql.append("  type_light  = 1 ");
-    if (type == 2) sql.append("  type_normal = 1 ");
-    if (type == 3) sql.append("  type_heavy  = 1 ");
+    sql.append("  type_light  = ? ");
+    sql.append("  type_normal = ? ");
+    sql.append("  type_heavy  = ? ");
     sql.append(";");
     db = lm.getReadableDatabase();
-    csr = db.rawQuery(sql.toString(), null);
-    // TODO 参考にする
-    //csr = db.rawQuery(sql.toString(), new String[] { schoolId, itemId });
+    csr = db.rawQuery(sql.toString(), new String[] { light, normal, heavy });
     while (csr.moveToNext()) {
-      int id = csr.getInt(csr.getColumnIndex("id"));
-      String lunch = csr.getString(csr.getColumnIndex("name"));
-      int light = csr.getInt(csr.getColumnIndex("type_light"));
-      int normal = csr.getInt(csr.getColumnIndex("type_normal"));
-      int heavy = csr.getInt(csr.getColumnIndex("type_heavy"));
-      Toast.makeText(this, id + "," + lunch + "," + light + "," + normal + "," + heavy, Toast.LENGTH_LONG).show();
+      lunch = csr.getString(csr.getColumnIndex("name"));
+      lunchList.add(lunch);
     }
-    return ans;
+    Collections.shuffle(lunchList);
+    lunch = lunchList.get(0);
+    return lunch;
   }
 }
 

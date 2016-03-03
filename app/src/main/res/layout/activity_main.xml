@@ -13,18 +13,47 @@
         android:layout_height="wrap_content"
         android:text="今日のランチ"
         android:id="@+id/TxtProposeLunch"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        />
+        android:layout_marginTop="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="今日のランチは...."
-        android:id="@+id/BtnRandamStart"
-        android:layout_below="@+id/TxtProposeLunch"
+        android:id="@+id/BtnRandomStart"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"/>
+        android:layout_marginBottom="80dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="軽い"
+        android:id="@+id/ChkLight"
+        android:layout_marginBottom="42dp"
+        android:layout_above="@+id/BtnRandomStart"
+        android:layout_toLeftOf="@+id/BtnRandomStart"
+        android:layout_toStartOf="@+id/BtnRandomStart" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="普通"
+        android:id="@+id/ChkNormal"
+        android:layout_above="@+id/BtnRandomStart"
+        android:layout_alignBaseline="@+id/ChkLight"
+        android:layout_alignBottom="@+id/ChkLight"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重い"
+        android:id="@+id/ChkHeavy"
+        android:layout_alignTop="@+id/ChkNormal"
+        android:layout_toRightOf="@+id/BtnRandomStart"
+        android:layout_toEndOf="@+id/BtnRandomStart" />
 
 
 </RelativeLayout>
