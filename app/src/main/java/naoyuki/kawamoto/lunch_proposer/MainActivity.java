@@ -15,25 +15,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    LunchMaster lm = new LunchMaster(this);
-    Cursor csr = null;
-    SQLiteDatabase db = null;
-    StringBuffer sql = new StringBuffer();
-    sql.append("SELECT ");
-    sql.append(" * ");
-    sql.append("FROM ");
-    sql.append("  m_lunch ");
-    sql.append(";");
-    db = lm.getReadableDatabase();
-    csr = db.rawQuery(sql.toString(), null);
-    while (csr.moveToNext()) {
-      int id = csr.getInt(csr.getColumnIndex("id"));
-      String lunch = csr.getString(csr.getColumnIndex("name"));
-      int light = csr.getInt(csr.getColumnIndex("type_light"));
-      int normal = csr.getInt(csr.getColumnIndex("type_normal"));
-      int heavy = csr.getInt(csr.getColumnIndex("type_heavy"));
-      Toast.makeText(this, id + "," + lunch + "," + light + "," + normal + "," + heavy, Toast.LENGTH_LONG).show();
-    }
+
   }
 
   @Override
@@ -59,4 +41,35 @@ public class MainActivity extends AppCompatActivity {
 
     return super.onOptionsItemSelected(item);
   }
+
+  public String propseLunch(int type) {
+    String ans = "";
+    LunchMaster lm = new LunchMaster(this);
+    Cursor csr = null;
+    SQLiteDatabase db = null;
+    StringBuffer sql = new StringBuffer();
+    sql.append("SELECT ");
+    sql.append(" name ");
+    sql.append("FROM ");
+    sql.append("  m_lunch ");
+    sql.append("WHERE ");
+    if (type == 1) sql.append("  type_light  = 1 ");
+    if (type == 2) sql.append("  type_normal = 1 ");
+    if (type == 3) sql.append("  type_heavy  = 1 ");
+    sql.append(";");
+    db = lm.getReadableDatabase();
+    csr = db.rawQuery(sql.toString(), null);
+    // TODO 参考にする
+    //csr = db.rawQuery(sql.toString(), new String[] { schoolId, itemId });
+    while (csr.moveToNext()) {
+      int id = csr.getInt(csr.getColumnIndex("id"));
+      String lunch = csr.getString(csr.getColumnIndex("name"));
+      int light = csr.getInt(csr.getColumnIndex("type_light"));
+      int normal = csr.getInt(csr.getColumnIndex("type_normal"));
+      int heavy = csr.getInt(csr.getColumnIndex("type_heavy"));
+      Toast.makeText(this, id + "," + lunch + "," + light + "," + normal + "," + heavy, Toast.LENGTH_LONG).show();
+    }
+    return ans;
+  }
 }
+
