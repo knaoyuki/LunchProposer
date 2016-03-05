@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import naoyuki.kawamoto.lunch_proposer.R;
 
 public class LunchRegister extends AppCompatActivity {
 

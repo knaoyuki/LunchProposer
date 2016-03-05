@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 /**
  * Created by n-kawamoto on 2016/01/16.
  */
@@ -33,5 +35,6 @@ public class LunchMaster extends SQLiteOpenHelper{
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
   }
+
 
 }
